@@ -3,7 +3,7 @@ package com.example.cloudinteractivenevic.extension
 import androidx.lifecycle.MutableLiveData
 import com.example.cloudinteractivenevic.api.converter.defaultGson
 import com.example.cloudinteractivenevic.api.errorHandler.defaultCoroutineExceptionHandler
-import com.example.cloudinteractivenevic.model.ErrorResponse
+import com.example.cloudinteractivenevic.api.response.ErrorResponse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

@@ -1,4 +1,4 @@
-package com.example.cloudinteractivenevic.model
+package com.example.cloudinteractivenevic.api.response
 
 import com.google.gson.annotations.SerializedName
 

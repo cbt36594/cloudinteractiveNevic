@@ -31,21 +31,38 @@ class ApiTest {
             .create(CloudService::class.java)
 
     @Test
-    fun testApi(){
+    fun testApi() {
         runBlocking {
             api.fetchPhotos()
                 .onStart {
 
                 }
-                    .catch { error ->
-                        println(error.message)
-                    }
-                        .onCompletion {
+                .catch { error ->
+                    println(error.message)
+                }
+                .onCompletion {
 
-                        }
-                            .collectLatest {
-                                println(it)
-                            }
+                }
+                .collectLatest {
+                    println(it)
+                }
+        }
+    }
+
+    @Test
+    fun testApi2() {
+
+        runBlocking {
+//            api.fetchPhotos()
+//                .onApiFailed {
+//                    Log.d("nevic", "${it.error.detail}")
+//                    println(it)
+//                }.map { it.body() }
+//                .filterNotNull()
+//                .onEach {
+//                    Log.d("nevic", "${it.id}")
+//                    println(it)
+//                }
         }
     }
 }

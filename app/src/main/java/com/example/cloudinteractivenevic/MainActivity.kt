@@ -14,17 +14,6 @@ import com.example.cloudinteractivenevic.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-//    companion object {
-//        @JvmStatic
-//        @Deprecated("Remove when Navigation complete.")
-//        fun startActivity(context: Context) {
-//            val intent = Intent()
-//            intent.setClass(context, MainActivity::class.java)
-//            context.startActivity(intent)
-//        }
-//
-//    }
-
     private val navController by lazy {
         (supportFragmentManager.findFragmentById(
             R.id.my_host_fragment
