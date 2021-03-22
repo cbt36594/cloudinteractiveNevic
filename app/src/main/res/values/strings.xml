@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">cloudinteractiveNevic</string>
+    <string name="my_name">Nevic</string>
+    <string name="request_api">Request Api</string>
+</resources>
