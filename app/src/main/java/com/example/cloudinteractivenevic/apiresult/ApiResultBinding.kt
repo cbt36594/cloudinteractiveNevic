@@ -1,10 +1,13 @@
 package com.example.cloudinteractivenevic.apiresult
 
+import android.graphics.drawable.Drawable
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestListener
 import com.example.cloudinteractivenevic.model.Photos
+
 
 object ApiResultBinding {
 
@@ -20,14 +23,26 @@ object ApiResultBinding {
         (recyclerView.adapter as ApiResultAdapter).submitList(photoList)
     }
 
-    @BindingAdapter("photoUrl")
+    @BindingAdapter("photoUrl", "placeholder", "error")
     @JvmStatic
     fun bindImage(
         image: AppCompatImageView,
-        url: String
+        url: String,
+        placeHolder: Drawable,
+        error: Drawable
     ) {
-        Glide.with(image.context)
-            .load(url)
-            .into(image)
+//        if (url.isNotEmpty()){
+            Glide.with(image.context)
+                .load(url)
+                .centerCrop()
+                .placeholder(placeHolder)
+                .error(error)
+                .into(image)
+//        }
+//        else{
+//            image.setImageDrawable(placeHolder)
+//        }
+
     }
 }
+

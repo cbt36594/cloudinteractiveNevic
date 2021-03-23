@@ -6,6 +6,7 @@ import com.example.cloudinteractivenevic.api.adpter.FlowCallAdapterFactory
 import com.example.cloudinteractivenevic.api.converter.defaultGsonConverterFactory
 import com.example.cloudinteractivenevic.api.httpClient.defaultClientBuilder
 import com.example.cloudinteractivenevic.extension.onApiFailed
+import com.example.cloudinteractivenevic.model.Photos
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
@@ -32,6 +33,7 @@ class ApiTest {
 
     @Test
     fun testApi() {
+        var temp : List<Photos>
         runBlocking {
             api.fetchPhotos()
                 .onStart {
@@ -44,6 +46,7 @@ class ApiTest {
 
                 }
                 .collectLatest {
+                    temp = it
                     println(it)
                 }
         }

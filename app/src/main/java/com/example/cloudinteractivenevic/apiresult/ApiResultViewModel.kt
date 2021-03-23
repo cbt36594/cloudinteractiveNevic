@@ -42,6 +42,7 @@ class ApiResultViewModel : ViewModel() {
 
             }
             .collectLatest {
+                Log.d("nevic", "完成")
                 Log.d("nevic", "$it")
                 _photoResponse.value = it
                 _title.value = it[10].title

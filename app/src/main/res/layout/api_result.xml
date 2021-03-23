@@ -12,12 +12,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_item_test"
+            photoUrl="@string/url_test"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_news_center"
+            photoList="@{viewModel.photoResponse}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            photoList="@{viewModel.photoResponse}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_marginTop="100dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/img_item_test" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -26,8 +26,10 @@ class ApiResultFragment : Fragment() {
             .apply {
                 viewModel = this@ApiResultFragment.viewModel
                 lifecycleOwner = viewLifecycleOwner
+                executePendingBindings()
             }
         viewModel.apply {
+            getPhotos()
             clickGetPhotos = {
                 Log.d("nevic", "clickGetPhotos")
 
@@ -41,6 +43,6 @@ class ApiResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPhotos()
+//        viewModel.getPhotos()
     }
 }
