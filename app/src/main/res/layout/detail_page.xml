@@ -12,15 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_news_center"
-            photoList="@{viewModel.photoResponse}"
-            clickItem="@{viewModel}"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_detail"
+            android:onClick = "@{() -> viewModel.clickItemDetail.invoke()}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation= "vertical"
-            app:spanCount ="4"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

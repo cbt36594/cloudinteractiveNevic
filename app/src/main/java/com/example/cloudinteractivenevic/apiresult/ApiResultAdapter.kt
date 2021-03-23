@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cloudinteractivenevic.databinding.ResultItemsBinding
 import com.example.cloudinteractivenevic.model.Photos
 
-class ApiResultAdapter: ListAdapter<Photos, ViewHolder>(PhotosDiffCallback()) {
+class ApiResultAdapter(private var viewmodel: ApiResultViewModel) :
+    ListAdapter<Photos, ViewHolder>(PhotosDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -20,12 +21,14 @@ class ApiResultAdapter: ListAdapter<Photos, ViewHolder>(PhotosDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
+            viewModel = this@ApiResultAdapter.viewmodel
             photos = getItem(position)
             executePendingBindings()
         }
     }
 
 }
+
 class ViewHolder(val binding: ResultItemsBinding) : RecyclerView.ViewHolder(binding.root)
 
 class PhotosDiffCallback : DiffUtil.ItemCallback<Photos>() {

@@ -11,6 +11,5 @@ val defaultGsonConverterFactory: Converter.Factory by lazy {
 
 val defaultGson: Gson by lazy {
     GsonBuilder()
-//        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
         .create()
 }

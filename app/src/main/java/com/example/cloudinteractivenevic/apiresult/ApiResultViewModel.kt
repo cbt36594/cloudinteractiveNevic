@@ -19,8 +19,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class ApiResultViewModel : ViewModel() {
 
-    private var _id = MutableLiveData<Int>(0)
-    val id: LiveData<Int> = _id
+    private var _id = MutableLiveData<String>()
+    val id: LiveData<String> = _id
     private var _title = MutableLiveData<String>()
     val title: LiveData<String> = _title
 
@@ -28,6 +28,7 @@ class ApiResultViewModel : ViewModel() {
     val photoResponse: LiveData<List<Photos>> = _photoResponse
 
     var clickGetPhotos: () -> Unit = {}
+    var clickItemDetail: () -> Unit = {}
 
     fun getPhotos() {
         viewModelScope.launch {
@@ -45,23 +46,16 @@ class ApiResultViewModel : ViewModel() {
                 Log.d("nevic", "完成")
                 Log.d("nevic", "$it")
                 _photoResponse.value = it
-                _title.value = it[10].title
             }
-//            cloudService.fetchPhotos()
-//                .onApiFailed {
-//                    Log.d("nevic", "$it")
-//                }.map {
-//                    it.body()
-//                }.filterNotNull()
-//                .catch {
-//                    Log.d("nevic", "$it")
-//                }
-//                .onEach {
-//                    Log.d("nevic", "$it")
-//                    _id.value = it.id
-//                }
         }
+    }
 
+    fun setId(str: String) {
+        _id.value = str
+    }
+
+    fun setTitle(str: String) {
+        _title.value = str
     }
 
 }

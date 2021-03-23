@@ -16,4 +16,10 @@
         android:name="com.example.cloudinteractivenevic.apiresult.ApiResultFragment"
         android:label="ApiResultFragment"
         tools:layout="@layout/api_result"/>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.cloudinteractivenevic.apiresult.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/detail_page"/>
 </navigation>

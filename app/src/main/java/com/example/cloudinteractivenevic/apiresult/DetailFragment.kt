@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cloudinteractivenevic.R
-import com.example.cloudinteractivenevic.databinding.ApiResultBinding
+import com.example.cloudinteractivenevic.databinding.DetailPageBinding
 
-class ApiResultFragment : Fragment() {
+class DetailFragment : Fragment()  {
 
-    private lateinit var binding: ApiResultBinding
+    private lateinit var binding: DetailPageBinding
     private  val viewModel by viewModels<ApiResultViewModel>()
 
     override fun onCreateView(
@@ -22,9 +22,9 @@ class ApiResultFragment : Fragment() {
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        binding = ApiResultBinding.inflate(inflater, container, false)
+        binding = DetailPageBinding.inflate(inflater, container, false)
             .apply {
-                viewModel = this@ApiResultFragment.viewModel
+                viewModel = this@DetailFragment.viewModel
                 lifecycleOwner = viewLifecycleOwner
                 executePendingBindings()
             }
@@ -39,15 +39,10 @@ class ApiResultFragment : Fragment() {
             }
             clickItemDetail = {
                 findNavController().navigate(
-                    R.id.apiResultFragment
+                    R.id.detailFragment
                 )
             }
         }
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        viewModel.getPhotos()
     }
 }
