@@ -1,4 +1,4 @@
-package com.example.cloudinteractivenevic
+package com.example.cloudinteractivenevic.apiresult
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,6 +10,7 @@ import com.example.cloudinteractivenevic.api.adpter.FlowCallAdapterFactory
 import com.example.cloudinteractivenevic.api.cloudService
 import com.example.cloudinteractivenevic.api.httpClient.client
 import com.example.cloudinteractivenevic.extension.onApiFailed
+import com.example.cloudinteractivenevic.model.Photos
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -22,6 +23,9 @@ class ApiResultViewModel : ViewModel() {
     val id: LiveData<Int> = _id
     private var _title = MutableLiveData<String>()
     val title: LiveData<String> = _title
+
+    private val _photoResponse = MutableLiveData<List<Photos>>()
+    val photoResponse: LiveData<List<Photos>> = _photoResponse
 
     var clickGetPhotos: () -> Unit = {}
 
@@ -39,6 +43,7 @@ class ApiResultViewModel : ViewModel() {
             }
             .collectLatest {
                 Log.d("nevic", "$it")
+                _photoResponse.value = it
                 _title.value = it[10].title
             }
 //            cloudService.fetchPhotos()

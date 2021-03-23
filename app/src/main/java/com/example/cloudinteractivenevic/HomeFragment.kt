@@ -30,7 +30,6 @@ class HomeFragment : Fragment() {
         viewModel.apply {
             clickGetPhotos = {
                 Log.d("nevic", "clickGetPhotos")
-                getPhotos()
                 findNavController().navigate(
                     R.id.apiResultFragment
                 )

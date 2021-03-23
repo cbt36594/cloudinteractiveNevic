@@ -1,4 +1,4 @@
-package com.example.cloudinteractivenevic
+package com.example.cloudinteractivenevic.apiresult
 
 import android.os.Bundle
 import android.util.Log
@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.cloudinteractivenevic.R
 import com.example.cloudinteractivenevic.databinding.ApiResultBinding
-import com.example.cloudinteractivenevic.databinding.HomeBinding
 
 class ApiResultFragment : Fragment() {
 
@@ -30,12 +30,17 @@ class ApiResultFragment : Fragment() {
         viewModel.apply {
             clickGetPhotos = {
                 Log.d("nevic", "clickGetPhotos")
-                getPhotos()
+
                 findNavController().navigate(
                     R.id.apiResultFragment
                 )
             }
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getPhotos()
     }
 }
