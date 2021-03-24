@@ -16,7 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="wrap_content">
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -25,15 +25,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.example.cloudinteractivenevic.common.PreferImageView
                 android:id="@+id/img_item_one"
                 error="@{@drawable/ic_bug_buddy_vector}"
                 photoUrl="@{photos.thumbnailUrl}"
                 placeholder="@{@drawable/ic_soldek}"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:onClick="@{() -> viewModel.clickItemDetail.invoke(String.valueOf(photos.id),photos.title,photos.thumbnailUrl)}"
-                android:scaleType="centerInside"
+                android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
