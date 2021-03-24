@@ -2,7 +2,7 @@ package com.example.cloudinteractivenevic.api.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ErrorResponse(
+data class OnErrorResnse(
     @SerializedName("Error")
     val error: AppError,
     override val Meta: Meta

@@ -10,7 +10,13 @@ val defaultCoroutineExceptionHandler =
             "CoroutineExceptionHandler got ${exception} with suppressed ${(exception.suppressed ?: emptyArray()).contentToString()}",
         )
     }
-
+fun defaultMessageCoroutineExceptionHandler(
+    onError: (code: Int, message: String) -> Unit,
+): CoroutineExceptionHandler =
+    CoroutineExceptionHandler { coroutineContext, exception ->
+        defaultCoroutineExceptionHandler.handleException(coroutineContext, exception)
+        onError(exception.hashCode(), "${exception.message}")
+    }
 fun defaultCoroutineExceptionHandler(
     onError: () -> Unit): CoroutineExceptionHandler =
     CoroutineExceptionHandler { coroutineContext, exception ->

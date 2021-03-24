@@ -1,29 +1,29 @@
 package com.example.cloudinteractivenevic.extension
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.cloudinteractivenevic.api.converter.defaultGson
 import com.example.cloudinteractivenevic.api.errorHandler.defaultCoroutineExceptionHandler
-import com.example.cloudinteractivenevic.api.response.ErrorResponse
+import com.example.cloudinteractivenevic.api.errorHandler.defaultMessageCoroutineExceptionHandler
+import com.example.cloudinteractivenevic.api.response.OnErrorResnse
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.*
 import retrofit2.Response
+
 
 @OptIn(InternalCoroutinesApi::class)
 suspend fun <T> Flow<T>.toLiveData(liveData: MutableLiveData<T>) = collect { liveData.value = it }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-fun <T : Response<*>> Flow<T>.onApiFailed(
-    doOnApiFailed: suspend (ErrorResponse) -> Unit
+fun <T : Response<*>> Flow<T>.onApiFailed (
+    doOnApiFailed: suspend (OnErrorResnse) -> Unit
 ): Flow<T> =
     transform { value ->
         if (!value.isSuccessful) {
             runCatching {
                 defaultGson.fromJson(
-                    withContext(Dispatchers.IO) { value.errorBody()?.string() },
-                    ErrorResponse::class.java
+                    kotlinx.coroutines.withContext(Dispatchers.IO) { value.errorBody()?.string() },
+                    OnErrorResnse::class.java
                 )
             }
                 .onSuccess { doOnApiFailed(it) }
@@ -44,3 +44,18 @@ fun <T> Flow<T>.onEveryEachToLiveData(liveData: MutableLiveData<T>, onSuccess: (
 @OptIn(ExperimentalCoroutinesApi::class)
 fun <T> Flow<T>.launchInWithDefaultErrorHandler(scope: CoroutineScope) =
     launchIn(scope + defaultCoroutineExceptionHandler)
+
+@OptIn(ExperimentalCoroutinesApi::class)
+fun <T> Flow<T>.launchInWithDefaultErrorHandler(
+    scope: CoroutineScope,
+    onError: (exceptionMsg: String) -> Unit,
+) =
+    catch { exception ->
+        Log.w(
+            "",
+            "caught $exception with suppressed ${(exception.suppressed ?: emptyArray()).contentToString()}",
+        )
+        onError("${exception.message}")
+    }.launchIn(scope + defaultMessageCoroutineExceptionHandler { _, exceptionMsg ->
+        onError(exceptionMsg)
+    })

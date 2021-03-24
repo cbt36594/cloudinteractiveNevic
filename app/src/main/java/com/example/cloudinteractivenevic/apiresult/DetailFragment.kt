@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.cloudinteractivenevic.R
 import com.example.cloudinteractivenevic.databinding.DetailPageBinding
 
@@ -15,7 +16,7 @@ class DetailFragment : Fragment()  {
 
     private lateinit var binding: DetailPageBinding
     private  val viewModel by viewModels<ApiResultViewModel>()
-
+    private val args by navArgs<ApiResultFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
@@ -26,21 +27,13 @@ class DetailFragment : Fragment()  {
             .apply {
                 viewModel = this@DetailFragment.viewModel
                 lifecycleOwner = viewLifecycleOwner
-                executePendingBindings()
             }
         viewModel.apply {
-            getPhotos()
-            clickGetPhotos = {
-                Log.d("nevic", "clickGetPhotos")
-
-                findNavController().navigate(
-                    R.id.apiResultFragment
-                )
-            }
+            setId(args.id)
+            setTitle(args.title)
+            setThumbnailUrl(args.thumbnailUrl)
             clickItemDetail = {
-                findNavController().navigate(
-                    R.id.detailFragment
-                )
+                findNavController().popBackStack()
             }
         }
         return binding.root

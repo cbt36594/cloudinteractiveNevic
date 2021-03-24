@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cloudinteractivenevic.databinding.ResultItemsBinding
 import com.example.cloudinteractivenevic.model.Photos
 
-class ApiResultAdapter(private var viewmodel: ApiResultViewModel) :
+class ApiResultAdapter(val viewmodel: ApiResultViewModel) :
     ListAdapter<Photos, ViewHolder>(PhotosDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,10 +21,13 @@ class ApiResultAdapter(private var viewmodel: ApiResultViewModel) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            viewModel = this@ApiResultAdapter.viewmodel
-            photos = getItem(position)
+            this.viewModel = this@ApiResultAdapter.viewmodel
+            this.photos = getItem(position)
             executePendingBindings()
         }
+        viewmodel.setId(getItem(position).id.toString())
+        viewmodel.setTitle(getItem(position).title)
+        viewmodel.setThumbnailUrl(getItem(position).thumbnailUrl)
     }
 
 }

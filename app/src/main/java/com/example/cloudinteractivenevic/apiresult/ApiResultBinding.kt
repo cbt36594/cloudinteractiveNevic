@@ -11,21 +11,16 @@ import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.cloudinteractivenevic.model.Photos
-import javax.sql.DataSource
 
 
 object ApiResultBinding {
 
-    @BindingAdapter("photoList", "clickItem")
+    @BindingAdapter("photoList")
     @JvmStatic
     fun bindPhotoList(
         recyclerView: RecyclerView,
-        photoList: List<Photos>?,
-        click: ApiResultViewModel
+        photoList: List<Photos>?
     ) {
-        if (recyclerView.adapter == null) {
-            recyclerView.adapter = ApiResultAdapter(click)
-        }
         (recyclerView.adapter as ApiResultAdapter).submitList(photoList)
     }
 
@@ -37,11 +32,12 @@ object ApiResultBinding {
         placeHolder: Drawable,
         error: Drawable
     ) {
-        val glideUrl = GlideUrl(url,  LazyHeaders.Builder()
-            .addHeader("User-Agent",
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit / 537.36(KHTML, like Gecko) Chrome  47.0.2526.106 Safari / 537.36")
-            .build())
+
         if (url.isNotEmpty()){
+            val glideUrl = GlideUrl(url,  LazyHeaders.Builder()
+                .addHeader("User-Agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit / 537.36(KHTML, like Gecko) Chrome  47.0.2526.106 Safari / 537.36")
+                .build())
             Glide.with(image.context)
                 .load(glideUrl)
                 .centerCrop()
