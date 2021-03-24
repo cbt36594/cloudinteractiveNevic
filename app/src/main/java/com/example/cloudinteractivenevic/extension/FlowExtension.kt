@@ -1,6 +1,5 @@
 package com.example.cloudinteractivenevic.extension
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.cloudinteractivenevic.api.converter.defaultGson
 import com.example.cloudinteractivenevic.api.errorHandler.defaultCoroutineExceptionHandler
@@ -9,6 +8,7 @@ import com.example.cloudinteractivenevic.api.response.OnErrorResnse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import retrofit2.Response
+import timber.log.Timber
 
 
 @OptIn(InternalCoroutinesApi::class)
@@ -51,10 +51,7 @@ fun <T> Flow<T>.launchInWithDefaultErrorHandler(
     onError: (exceptionMsg: String) -> Unit,
 ) =
     catch { exception ->
-        Log.w(
-            "",
-            "caught $exception with suppressed ${(exception.suppressed ?: emptyArray()).contentToString()}",
-        )
+        Timber.d("caught $exception with suppressed ${(exception.suppressed ?: emptyArray()).contentToString()}")
         onError("${exception.message}")
     }.launchIn(scope + defaultMessageCoroutineExceptionHandler { _, exceptionMsg ->
         onError(exceptionMsg)

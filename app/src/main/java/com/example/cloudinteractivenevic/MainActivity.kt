@@ -1,16 +1,10 @@
 package com.example.cloudinteractivenevic
 
-import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.example.cloudinteractivenevic.common.navigateForward
 import com.example.cloudinteractivenevic.databinding.ActivityMainBinding
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
                 }
         navController.setGraph(R.navigation.nav_graph, null)
-
     }
     override fun onNavigateUp(): Boolean {
         return navController.popBackStack()

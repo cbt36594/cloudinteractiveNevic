@@ -14,8 +14,6 @@
             type="com.example.cloudinteractivenevic.model.Photos" />
     </data>
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="100dp">
@@ -34,7 +32,7 @@
                 placeholder="@{@drawable/ic_soldek}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="@{() -> viewModel.clickItemDetail.invoke()}"
+                android:onClick="@{() -> viewModel.clickItemDetail.invoke(String.valueOf(photos.id),photos.title,photos.thumbnailUrl)}"
                 android:scaleType="centerInside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

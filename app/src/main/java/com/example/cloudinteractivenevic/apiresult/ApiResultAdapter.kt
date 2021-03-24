@@ -25,9 +25,6 @@ class ApiResultAdapter(val viewmodel: ApiResultViewModel) :
             this.photos = getItem(position)
             executePendingBindings()
         }
-        viewmodel.setId(getItem(position).id.toString())
-        viewmodel.setTitle(getItem(position).title)
-        viewmodel.setThumbnailUrl(getItem(position).thumbnailUrl)
     }
 
 }
