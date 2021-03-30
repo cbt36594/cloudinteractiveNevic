@@ -55,31 +55,7 @@ object ApiResultBinding {
                         isFirstResource: Boolean
                     ): Boolean {
                         image.setImageDrawable(resource)
-
-                        //获取画布的大小
-//                        val imageWidth = resource?.intrinsicWidth
-//                        var imageHeight = resource?.intrinsicHeight
-//
-//                        //只有当xml layout 配置为match_parent才可以调用nw和nh获取视图的高度和宽度，否则不行
-//                        val nw = image.width
-//                        val nh = image.height
-//                        if(imageWidth != null && imageWidth > nw){
-//
-//                            val matrix = Matrix()
-//                            //设置放大比例
-//                            val fScale = nw*1.0f/imageWidth
-//
-//                            //计算垂直的居中距离
-//                            var fTranslateY = 0f
-//                            imageHeight = (fScale * imageHeight!!).toInt()
-//                            if(nh > 0 && nh > imageHeight){
-//                                fTranslateY = ((nh - imageHeight) / 2).toFloat()
-//                            }
-//
-//                            matrix.postScale(fScale,fScale);
-//                            matrix.postTranslate(0F, fTranslateY)
-//                            image.imageMatrix = matrix
-//                        }
+                        
                         return true
                     }
 
