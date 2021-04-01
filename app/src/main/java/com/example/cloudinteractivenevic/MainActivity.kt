@@ -23,8 +23,10 @@ class MainActivity : AppCompatActivity() {
 
                 }
         navController.setGraph(R.navigation.nav_graph, null)
+
     }
     override fun onNavigateUp(): Boolean {
         return navController.popBackStack()
     }
+
 }

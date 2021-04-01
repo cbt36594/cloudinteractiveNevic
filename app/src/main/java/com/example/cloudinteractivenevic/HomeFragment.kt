@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cloudinteractivenevic.databinding.HomeBinding
+import com.example.cloudinteractivenevic.extension.BitmapCache
 
 class HomeFragment : Fragment() {
 
@@ -19,7 +20,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-
+        val bitmapCache = BitmapCache()
+        bitmapCache.clearBitmap()
         binding = HomeBinding.inflate(inflater, container, false)
             .apply {
                 viewModel = this@HomeFragment.viewModel

@@ -1,5 +1,7 @@
 package com.example.cloudinteractivenevic.apiresult
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.cloudinteractivenevic.R
 import com.example.cloudinteractivenevic.common.navigateForward
 import com.example.cloudinteractivenevic.databinding.ApiResultBinding
+import com.example.cloudinteractivenevic.extension.*
+import kotlinx.coroutines.*
+import timber.log.Timber
+import java.net.URL
 
 class ApiResultFragment : Fragment() {
 
