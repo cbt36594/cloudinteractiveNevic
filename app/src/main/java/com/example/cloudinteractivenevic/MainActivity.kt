@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cloudinteractivenevic.databinding.ActivityMainBinding
+import com.example.cloudinteractivenevic.extension.BitmapCache
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,5 +29,4 @@ class MainActivity : AppCompatActivity() {
     override fun onNavigateUp(): Boolean {
         return navController.popBackStack()
     }
-
 }

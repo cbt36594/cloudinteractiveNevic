@@ -2,39 +2,33 @@ package com.example.cloudinteractivenevic.extension
 
 import android.graphics.Bitmap
 import android.util.Log
-import android.util.LruCache;
-import timber.log.Timber
+import android.util.LruCache
 
 
-class BitmapCache {
-    private var lruCache: LruCache<String, Bitmap>? = null
+class BitmapCache(maxSize: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 8) : LruCache<String, Bitmap>(
+    maxSize
+) , ImageCache{
 
-    fun BitmapCache() {
-//            int maxMemSize = 10*1024*1024;//預計 cache 大小：10M
-        val maxMemSize = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 4 //全部記憶體的 1/8
-        lruCache = object : LruCache<String, Bitmap>(maxMemSize) {
-            //設定預計的 cache 大小
-            override fun sizeOf(key: String?, bitmap: Bitmap): Int { //用來計算被 cache 的圖的大小
-                return bitmap.byteCount
-            }
-        }
-    }
-    fun getBitmap(url: String?): Bitmap? { //透過 url 檢查有沒有圖在 cache 中，有就回傳。或可不可以新建，可以就回傳。
-        Log.d("TestBit: ", "getlruCache${lruCache?.get(url)}")
-        return lruCache?.get(url)
+    override fun sizeOf(key: String?, value: Bitmap?): Int {
+        return if (value == null) 0 else value.rowBytes * value.height / 1024
     }
 
-    fun putBitmap(url: String?, bitmap: Bitmap?) { //把圖存到 cache 中
-        if (getBitmap(url) == null) {
-            Log.d("TestBit: ", "putlruCache")
-            lruCache?.put(url, bitmap);
-        } else {
-            Timber.d("CacheFail")
-        }
-
+    override fun getBitmap(url: String?): Bitmap? { //透過 url 檢查有沒有圖在 cache 中，有就回傳。或可不可以新建，可以就回傳。
+        Log.d("TestBit: ", "getlruCache ${get(url)}")
+        return get(url)
     }
 
-    fun clearBitmap(){
-        lruCache?.evictAll()
+    override fun putBitmap(url: String?, bitmap: Bitmap?) { //把圖存到 cache 中
+        Log.d("TestBit: ", "putlruCache")
+        put(url, bitmap)
     }
+
+    override fun clearBitmap() {
+        evictAll()
+    }
+}
+interface ImageCache {
+    fun getBitmap(url: String?): Bitmap?
+    fun putBitmap(url: String?, bitmap: Bitmap?)
+    fun clearBitmap()
 }

@@ -8,11 +8,11 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import android.util.Log
+import timber.log.Timber
 import java.io.*
 import java.net.URL
+import java.net.URLConnection
 import java.util.*
 
 fun Bitmap.saveToFile(filePath: String, fileName: String, quality: Int = 100): File? {
@@ -118,7 +118,7 @@ fun decodeSampledBitmapFromResource(
     return BitmapFactory.decodeResource(res, resId, options)
 }
 
-fun urlToBitmap (url : String) : Bitmap? {
+fun urlToBitmap(url: String) : Bitmap? {
 
         var bitmap: Bitmap? = null
         try {
@@ -129,15 +129,16 @@ fun urlToBitmap (url : String) : Bitmap? {
         }
         return bitmap
 }
-fun URL.toBitmap(): Bitmap?{
+fun URLConnection.toBitmap(): Bitmap? {
     return try {
-        BitmapFactory.decodeStream(openStream())
-    }catch (e:IOException){
+        BitmapFactory.decodeStream(getInputStream())
+    } catch (e: IOException){
+        Timber.d("TestBit: inputStream $e")
         null
     }
 }
 
-fun Bitmap.saveToInternalStorage(context : Context): Uri?{
+fun Bitmap.saveToInternalStorage(context: Context): Uri?{
     // get the context wrapper instance
     val wrapper = ContextWrapper(context)
 
@@ -167,4 +168,16 @@ fun Bitmap.saveToInternalStorage(context : Context): Uri?{
         e.printStackTrace()
         null
     }
+}
+
+fun reads (ins: InputStream): ByteArray? {
+    val outStream = ByteArrayOutputStream()
+    val b = ByteArray(1024)
+    var len = 0
+    while (ins.read(b).also { len = it } != -1) {
+        outStream.write(b, 0, len)
+    }
+    outStream.close()
+    ins.close()
+    return outStream.toByteArray()
 }
