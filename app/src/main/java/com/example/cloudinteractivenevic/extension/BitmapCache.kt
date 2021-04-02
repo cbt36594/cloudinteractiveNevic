@@ -3,7 +3,6 @@ package com.example.cloudinteractivenevic.extension
 import android.graphics.Bitmap
 import android.util.LruCache
 import timber.log.Timber
-import timber.log.Timber.DebugTree
 
 
 class BitmapCache(maxSize: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 8) : LruCache<String, Bitmap>(
@@ -11,7 +10,6 @@ class BitmapCache(maxSize: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt
 ) , ImageCache {
 
     init {
-        Timber.plant(DebugTree())
         Timber.tag("TestBit")
     }
 
