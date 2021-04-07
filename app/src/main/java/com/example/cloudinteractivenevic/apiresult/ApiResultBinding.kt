@@ -14,7 +14,7 @@ import java.net.URLConnection
 
 
 object ApiResultBinding {
-
+    val bitmapCache = BitmapCache()
     @BindingAdapter("photoList")
     @JvmStatic
     fun bindPhotoList(
@@ -34,7 +34,7 @@ object ApiResultBinding {
     ) {
         val connection: URLConnection = URL(url).openConnection()
         connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit / 537.36(KHTML, like Gecko) Chrome  47.0.2526.106 Safari / 537.36")
-        val bitmapCache = BitmapCache()
+
         if(bitmapCache.getBitmap(url) == null) {
 
             val result: Deferred<Bitmap?> = GlobalScope.async(Dispatchers.IO) {
