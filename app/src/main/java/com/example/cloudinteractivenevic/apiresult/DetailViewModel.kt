@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(val id_: String,val title_: String,val thumbnailUrl_: String) : ViewModel() {
     private var _id = MutableLiveData<String>()
-    val id: LiveData<String> = _id
+    val id: String = id_
     private var _title = MutableLiveData<String>()
-    val title: LiveData<String> = _title
+    val title: String = title_
     private var _thumbnailUrl = MutableLiveData<String>()
-    val thumbnailUrl: LiveData<String> = _thumbnailUrl
+    val thumbnailUrl: String = thumbnailUrl_
 
     var clickItemDetailBack: () -> Unit = {}
 

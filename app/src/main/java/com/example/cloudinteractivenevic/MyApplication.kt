@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
 import android.os.LocaleList
+import com.example.cloudinteractivenevic.apiresult.DetailViewModel
 import com.example.cloudinteractivenevic.common.PreferencesHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -62,9 +63,11 @@ class MyApplication: Application() {
     }
 }
 val appModule = module {
-//    viewModel { (loginType: LoginType) ->
-//        HomeViewModel(
-//            loginType = loginType
-//        )
-//    }
+    viewModel { (id: String, title: String, thumbnailUrl: String) ->
+        DetailViewModel(
+            id_ = id,
+            title_ = title,
+            thumbnailUrl_ = thumbnailUrl
+        )
+    }
 }

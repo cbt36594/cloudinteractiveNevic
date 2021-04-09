@@ -9,11 +9,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cloudinteractivenevic.databinding.DetailPageBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailFragment : Fragment()  {
 
     private lateinit var binding: DetailPageBinding
-    private  val viewModel by viewModels<DetailViewModel>()
+    private  val viewModel by viewModel<DetailViewModel>() {
+        /*** 使用koin帶參數進viewModel ***/
+        parametersOf(args.id, args.title, args.thumbnailUrl)
+    }
     private val args by navArgs<ApiResultFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +32,10 @@ class DetailFragment : Fragment()  {
                 lifecycleOwner = viewLifecycleOwner
             }
         viewModel.apply {
-            setId(args.id)
-            setTitle(args.title)
-            setThumbnailUrl(args.thumbnailUrl)
+              /*** LiveData另一種用法 ***/
+//            setId(args.id)
+//            setTitle(args.title)
+//            setThumbnailUrl(args.thumbnailUrl)
             clickItemDetailBack = {
                 findNavController().popBackStack()
             }
