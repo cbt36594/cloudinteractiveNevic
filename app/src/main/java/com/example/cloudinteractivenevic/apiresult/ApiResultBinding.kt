@@ -1,9 +1,18 @@
 package com.example.cloudinteractivenevic.apiresult
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.view.View
+import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cloudinteractivenevic.extension.BitmapCache
 import com.example.cloudinteractivenevic.extension.toBitmap
@@ -37,12 +46,12 @@ object ApiResultBinding {
 
         if(bitmapCache.getBitmap(url) == null) {
 
-            val result: Deferred<Bitmap?> = GlobalScope.async(Dispatchers.IO) {
+            val result: Deferred<Bitmap?>? = image.lifecycleOwner?.lifecycleScope?.async(Dispatchers.IO) {
                 connection.toBitmap()
             }
-            GlobalScope.launch(Dispatchers.Main) {
+            image.lifecycleOwner?.lifecycleScope?.launch(Dispatchers.Main) {
 
-                val bitmap = result.await()
+                val bitmap = result?.await()
 
                 if (bitmap != null) {
                     bitmapCache.putBitmap(url, bitmap)
@@ -54,8 +63,23 @@ object ApiResultBinding {
         } else {
             image.setImageBitmap(bitmapCache.getBitmap(url))
         }
+    }
+    private val View.lifecycleOwner: LifecycleOwner? get() = try {
+        val fragment = findFragment<Fragment>()
+        fragment.viewLifecycleOwner
+    } catch (e: IllegalStateException) {
+        when (val activity = context.getActivity()) {
+            is ComponentActivity -> activity
+            else -> null
+        }
+    }
+    private tailrec fun Context?.getActivity(): Activity? = when (this) {
+        is Activity -> this
 
-
+        else -> {
+            val contextWrapper = this as? ContextWrapper
+            contextWrapper?.baseContext?.getActivity()
+        }
     }
 }
 
