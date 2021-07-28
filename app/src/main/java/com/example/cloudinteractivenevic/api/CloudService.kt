@@ -14,7 +14,7 @@ import retrofit2.http.GET
 interface CloudService {
 
     @GET("/photos")
-    fun fetchPhotos(): Flow<List<Photos>>
+    fun fetchPhotos(): Flow<Response<List<Photos>>>
 
 }
 val cloudService: CloudService

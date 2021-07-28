@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.cloudinteractivenevic.api.converter.defaultGson
 import com.example.cloudinteractivenevic.api.errorHandler.defaultCoroutineExceptionHandler
 import com.example.cloudinteractivenevic.api.errorHandler.defaultMessageCoroutineExceptionHandler
-import com.example.cloudinteractivenevic.api.response.OnErrorResnse
+import com.example.cloudinteractivenevic.api.response.OnErrorResponse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import retrofit2.Response
@@ -16,14 +16,14 @@ suspend fun <T> Flow<T>.toLiveData(liveData: MutableLiveData<T>) = collect { liv
 
 @OptIn(ExperimentalCoroutinesApi::class)
 fun <T : Response<*>> Flow<T>.onApiFailed (
-    doOnApiFailed: suspend (OnErrorResnse) -> Unit
+    doOnApiFailed: suspend (OnErrorResponse) -> Unit
 ): Flow<T> =
     transform { value ->
         if (!value.isSuccessful) {
             runCatching {
                 defaultGson.fromJson(
                     kotlinx.coroutines.withContext(Dispatchers.IO) { value.errorBody()?.string() },
-                    OnErrorResnse::class.java
+                    OnErrorResponse::class.java
                 )
             }
                 .onSuccess { doOnApiFailed(it) }
